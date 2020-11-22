@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start": "ts-node main.ts"
+  },
+  "dependencies": {
+    "node-ts": "^5.1.1",
+    "prettier": "^2.1.2",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.5"
+  }
+}

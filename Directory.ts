@@ -1,11 +1,12 @@
+import { FileType } from "./FileType";
 import { IFile } from "./IFile";
 
 export class Directory implements IFile {
   private name: string;
-  private parent: string;
-  private files: Array<IFile> = [];
+  private parent: string | null;
+  private children: Array<IFile> = [];
 
-  constructor(name: string, parent: string) {
+  constructor(name: string, parent: string | null) {
     this.setName(name);
     this.setParent(parent);
   }
@@ -30,22 +31,35 @@ export class Directory implements IFile {
     return 0;
   }
 
-  getType(): string {
-    return "Directory";
+  getType(): FileType {
+    return FileType.Directory;
   }
 
-  addFile(file: IFile) {
-    this.files.push(file);
+  add(child: IFile) {
+    this.children.push(child);
   }
 
-  print() {
+  getChildren(): IFile[] {
+    return this.children;
+  }
+
+  isDirectory(): this is Directory {
+    return true;
+  }
+
+  printChildren(depth = 0) {
+    this.children.forEach((child) => {
+      child.print(depth + 1);
+    });
+  }
+
+  print(depth = 0) {
+    const indentation = "  ".repeat(depth);
     console.log(
-      `${this.getParent()}${
+      `${indentation}${
         this.name
       } (Size: ${this.getSize()}, Type: ${this.getType()})`
     );
-    this.files.forEach((file) => {
-      file.print();
-    });
+    this.printChildren(depth);
   }
 }

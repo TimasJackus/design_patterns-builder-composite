@@ -1,12 +1,14 @@
+import { Directory } from "./Directory";
+import { FileType } from "./FileType";
 import { IFile } from "./IFile";
-// default browser
+
 export class File implements IFile {
   private name: string;
   private size: number;
-  private type: string;
+  private type: FileType;
   private parent: string;
 
-  constructor(name: string, size: number, type: string, parent: string) {
+  constructor(name: string, size: number, type: FileType, parent: string) {
     this.setName(name);
     this.setSize(size);
     this.setParent(parent);
@@ -21,7 +23,7 @@ export class File implements IFile {
     this.size = size;
   }
 
-  setType(type: string): void {
+  setType(type: FileType): void {
     this.type = type;
   }
 
@@ -37,7 +39,7 @@ export class File implements IFile {
     return this.size;
   }
 
-  getType(): string {
+  getType(): FileType {
     return this.type;
   }
 
@@ -45,9 +47,14 @@ export class File implements IFile {
     return this.parent;
   }
 
-  print() {
+  isDirectory(): this is Directory {
+    return false;
+  }
+
+  print(depth: number = 0) {
+    const indentation = "  ".repeat(depth);
     console.log(
-      `${this.getParent()}${
+      `${indentation}${
         this.name
       } (Size: ${this.getSize()}, Type: ${this.getType()})`
     );

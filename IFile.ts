@@ -1,7 +1,10 @@
+import { Directory } from "./Directory";
+import { FileType } from "./FileType";
 export interface IFile {
   getName(): string;
   getSize(): number;
-  getType(): string;
+  getType(): FileType;
   getParent(): string;
-  print(): void;
+  isDirectory(): this is Directory;
+  print(depth: number): void;
 }

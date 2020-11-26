@@ -1,19 +1,19 @@
-import { Directory } from "./Directory";
-import { File } from "./File";
 import { FileSystemBuilder } from "./FileSystem";
-
-(() => {
-  // const directory = new Directory("root");
-  // const file = new File("file_name.txt", 1000, "/root/");
-  // const testDirectory = new Directory("test", "/root/");
-  // const file2 = new File("file_name2.txt", 1000, "/root/test/");
-  // directory.addFile(file);
-  // directory.addFile(testDirectory);
-  // testDirectory.addFile(file2);
-  // directory.print();
-})();
+import { FileType } from "./FileType";
 
 (() => {
   const fileSystemBuilder = new FileSystemBuilder();
-  console.log(fileSystemBuilder);
+  fileSystemBuilder.addDirectory("test", "/");
+  fileSystemBuilder.addDirectory("test-subfolder", "/test/");
+  fileSystemBuilder.addDirectory("some-subfolder", "/test/test-subfolder/");
+  fileSystemBuilder.addDirectory("aa", "/");
+  fileSystemBuilder.addDirectory("aa-subfolder", "/aa");
+  fileSystemBuilder.addFile("testinis_failas.txt", "/aa", 100);
+  fileSystemBuilder.addFile(
+    "testinis_failas.png",
+    "/test",
+    2048,
+    FileType.Image
+  );
+  fileSystemBuilder.getRootDir().print();
 })();

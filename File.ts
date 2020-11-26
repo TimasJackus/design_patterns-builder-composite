@@ -52,7 +52,7 @@ export class File implements IFile {
   }
 
   print(depth: number = 0) {
-    const indentation = "  ".repeat(depth);
+    const indentation = " ".repeat(depth * 4);
     console.log(
       `${indentation}${
         this.name
